@@ -14,149 +14,65 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var stars = Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(Icons.star,color: Colors.yellow,),
-        Icon(Icons.star,color: Colors.yellow,),
-        Icon(Icons.star,color: Colors.yellow,),
-        Icon(Icons.star),
-        Icon(Icons.star),
-
-      ],
-    );
-    var textStyle = TextStyle(fontWeight: FontWeight.w900);
-    final ratings = Container(
-      padding: EdgeInsets.all(20.8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          stars,
-          Text('170 Reviews',style: textStyle)
-        ],
-      ),
-    );
-
-    final descTextStyle = TextStyle(
-      color: Colors.black,
-      fontWeight: FontWeight.w800,
-      fontFamily: 'Roboto',
-      letterSpacing: 0.5,
-      fontSize: 18,
-      height:2
-    );
-
-    final iconList = DefaultTextStyle.merge(
-      style: descTextStyle,
-      child: Container(
-        padding: EdgeInsets.all(20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Column(
-              children: [
-                Icon(Icons.kitchen, color: Colors.green[500]),
-                Text('PREP:'),
-                Text('25 min'),
-              ],
-            ),
-            Column(
-              children: [
-                Icon(Icons.timer, color: Colors.green[500]),
-                Text('COOK:'),
-                Text('1 Hour'),],
-            ),
-            Column(
-              children: [
-                Icon(Icons.restaurant, color: Colors.green[500]),
-                Text('FEED:'),
-                Text('4-5'),
-              ],
-            )
-          ],
-        ),
-      )
-    );
-
-    final titleText = Container(
-      padding: EdgeInsets.fromLTRB(0, 10, 0, 20),
-      child: Text("Strawberry Pavlova",
-          style: TextStyle(
-            decoration: TextDecoration.underline,
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-            color: Colors.pinkAccent,
-            letterSpacing: 1,
-          ),
-        ),
-    );
-
-    final subTitle = Text(''
-        'Pavlova is a meringue-based dessert named after the Russian ballerina Anna Pavlova.'
-        ' It has a crisp crust and soft, light inside,'
-        ' usually topped with fruit and whipped cream.'
-        ' The name is pronounced /pævˈloʊvə/, or like the name of the dancer, which was /ˈpɑːvləvə/.',
-            style: TextStyle(
-              fontSize: 24,
-              color: Colors.grey,
-            ),
-           );
-
-    final leftColumn = Container(
-      padding: EdgeInsets.fromLTRB(20, 30, 20, 20),
-      child: Column(
-        children: [
-          titleText,
-          subTitle,
-          ratings,
-          iconList,
-        ],
-      ),
-    );
 
 
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: Colors.yellow,
+        primaryColor: Colors.orange,
       ),
       title: 'Startup Name Generator',
       home:Scaffold(
+        bottomNavigationBar: BottomNavigationBar(items: [
+          BottomNavigationBarItem(icon: Icon(Icons.stars),label: "Favourite",),
+          // BottomNavigationBarItem(icon: Icon(Icons.add_circle_sharp),label:"Add"),
+          BottomNavigationBarItem(icon: Icon(Icons.place_sharp),label:"Place"),
+          BottomNavigationBarItem(icon: Icon(Icons.mail),label:"Mail"),
+        ],),
         appBar: AppBar(
           title: Text('Flutter layout demo'),
         ),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Container(
-              margin: EdgeInsets.fromLTRB(0, 40, 0, 30),
-              height: 600,
-              child: Card(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width:500,
-                      child: leftColumn,
-                    ),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
-                     width: 250,
-                     height: 250,
-                     child: Image.network('https://cdn.pixabay.com/photo/2018/08/05/13/16/dessert-3585584_960_720.jpg'),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
+        body: _buildList()
       ),
     );
   }
 }
 
 
+// GlobalKey _navigator() => Icon((Icons.arrow_forward))
 
+
+
+Widget _buildList() => ListView(
+  children: [
+    _tile('CineArts at the Empire', '85 W Portal Ave', Icons.theaters),
+    _tile('The Castro Theater', '429 Castro St', Icons.theaters),
+    _tile('Alamo Drafthouse Cinema', '2550 Mission St', Icons.theaters),
+    _tile('Roxie Theater', '3117 16th St', Icons.theaters),
+    _tile('United Artists Stonestown Twin', '501 Buckingham Way',
+        Icons.theaters),
+    _tile('AMC Metreon 16', '135 4th St #3000', Icons.theaters),
+    Divider(),
+    _tile('K\'s Kitchen', '757 Monterey Blvd', Icons.restaurant),
+    _tile('Emmy\'s Restaurant', '1923 Ocean Ave', Icons.restaurant),
+    _tile(
+        'Chaiya Thai Restaurant', '272 Claremont Blvd', Icons.restaurant),
+    _tile('La Ciccia', '291 30th St', Icons.restaurant),
+  ],
+);
+
+ListTile _tile(String title, String subtitle, IconData icon) => ListTile(
+  title: Text(title,
+      style: TextStyle(
+        fontWeight: FontWeight.w500,
+        fontSize: 20,
+      )),
+  subtitle: Text(subtitle),
+  leading: Icon(Icons.stars_sharp),
+  trailing: Icon(
+    icon,
+    color: Colors.blue[500],
+  ),
+);
 
 
 
